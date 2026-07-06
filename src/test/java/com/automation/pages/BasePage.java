@@ -11,3 +11,5 @@ public class BasePage {
         driver = DriverFactory.getDriver();
     }
 }
+
+//Base Class for all Page Objects
