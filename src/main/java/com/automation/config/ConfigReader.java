@@ -2,6 +2,7 @@ package com.automation.config;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class ConfigReader {
@@ -10,13 +11,19 @@ public class ConfigReader {
 
     static {
         try {
-            FileInputStream fis = new FileInputStream(
-                    "src/test/resources/config.properties");
 
-            properties.load(fis);
-            fis.close();
+            InputStream input =
+                    ConfigReader.class.getClassLoader()
+                            .getResourceAsStream("config.properties");
 
-        } catch (IOException e) {
+            if (input == null){
+                throw new RuntimeException("config.properties not found.");
+            }
+
+            properties.load(input);
+            input.close();
+
+        } catch (Exception e) {
             throw new RuntimeException("Unable to load config.properties", e);
         }
     }

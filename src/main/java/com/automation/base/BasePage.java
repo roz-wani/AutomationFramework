@@ -1,6 +1,7 @@
-package com.automation.pages;
+package com.automation.base;
 
 import com.automation.driver.DriverFactory;
+import com.automation.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,6 +11,7 @@ import java.sql.Driver;
 public class BasePage {
 
     protected WebDriver driver;
+    private final WaitUtils waitUtils = new WaitUtils();
 
     public BasePage() {
         driver = DriverFactory.getDriver();
@@ -17,19 +19,19 @@ public class BasePage {
 
     //Click Element
     protected void click(By locator) {
-        driver.findElement(locator).click();
+        waitUtils.waitForClickable(locator).click();
     }
 
     //Type Text
     protected void type(By locator, String text) {
-        WebElement element = driver.findElement(locator);
+        WebElement element = waitUtils.waitForVisibility(locator);
         element.clear();
         element.sendKeys(text);
     }
 
     //Read Text
     protected String getText(By locator) {
-        return driver.findElement(locator).getText();
+        return waitUtils.waitForVisibility(locator).getText();
     }
 
     //Check element displayed
@@ -37,8 +39,11 @@ public class BasePage {
         return driver.findElement(locator).isDisplayed();
     }
 
-    //Get WebElement
-    protected WebElement find(By locator) {
-        return driver.findElement(locator);
+    protected String getTitle() {
+        return  driver.getTitle();
+    }
+
+    protected String getCurrentUrl() {
+        return driver.getCurrentUrl();
     }
 }

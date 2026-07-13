@@ -2,7 +2,9 @@ package com.automation.ui;
 
 import com.automation.base.BaseTest;
 import com.automation.driver.DriverFactory;
+import com.automation.pages.HomePage;
 import com.automation.pages.LoginPage;
+import com.automation.utils.ScreenshotUtil;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -20,9 +22,9 @@ public class LoginTest extends BaseTest {
                 "tomsmith", "SuperSecretPassword!"
         );
 
+        HomePage homePage = new HomePage();
+
         Assert.assertTrue(
-                loginPage.getFlashMessage()
-                        .contains("You logged into a secure area!")
-        );
+                homePage.isLoginSuccessful());
     }
 }

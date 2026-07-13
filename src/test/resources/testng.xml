@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "htpps://testng.org/testng-1.0.dtd">
+
+<suite name="Automation Framework Suite">
+
+    <test name="UI Tests">
+
+        <classes>
+
+            <class name="com.automation.ui.LoginTest"/>
+
+            <class name="com.automation.ui.HomeTest"/>
+
+        </classes>
+
+    </test>
+
+</suite>
