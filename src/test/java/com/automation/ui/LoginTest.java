@@ -1,30 +1,41 @@
 package com.automation.ui;
 
 import com.automation.base.BaseTest;
+import com.automation.dataprovider.LoginDataProvider;
 import com.automation.driver.DriverFactory;
 import com.automation.pages.HomePage;
 import com.automation.pages.LoginPage;
-import com.automation.utils.ScreenshotUtil;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest {
 
-    @Test
-    public void successfulLoginTest() {
+    @Test(dataProvider = "loginData",
+    dataProviderClass = LoginDataProvider.class)
 
-        DriverFactory.getDriver()
-                .get("https://the-internet.herokuapp.com/login");
+    public void loginTest(String username,
+                          String password,
+                          String expected) {
 
         LoginPage loginPage = new LoginPage();
 
-        loginPage.login(
-                "tomsmith", "SuperSecretPassword!"
-        );
+        loginPage.login(username, password);
 
-        HomePage homePage = new HomePage();
+        if (expected.equalsIgnoreCase("PASS")) {
 
-        Assert.assertTrue(
-                homePage.isLoginSuccessful());
+            HomePage homePage = new HomePage();
+
+            Assert.assertTrue(homePage.isLoginSuccessful(),
+                    "Expected login is succeed.");
+
+            homePage.logout();
+
+        } else {
+
+            Assert.assertTrue(
+                    loginPage.isErrorMessageDisplayed(),
+                    "Expected error message to be displayed.");
+        }
     }
 }

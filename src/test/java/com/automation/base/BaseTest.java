@@ -1,5 +1,6 @@
 package com.automation.base;
 
+import com.automation.config.ConfigReader;
 import com.automation.driver.DriverFactory;
 import com.automation.listeners.TestListener;
 import org.testng.annotations.AfterMethod;
@@ -13,6 +14,11 @@ public class BaseTest {
     public void setup() {
 
         DriverFactory.initDriver();
+
+        DriverFactory.getDriver().manage().window().maximize();
+
+        DriverFactory.getDriver().get(
+                ConfigReader.getProperty("base.url"));
     }
 
     @AfterMethod

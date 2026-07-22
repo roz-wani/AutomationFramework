@@ -12,6 +12,10 @@ public class LoginPage extends BasePage {
     private By loginButton = By.cssSelector("button[type='submit']");
     private By flashMessage = By.id("flash");
 
+    public LoginPage() {
+        super();
+    }
+
     //Login Method
     public void login(String user, String pass) {
         type(username, user);
@@ -20,7 +24,8 @@ public class LoginPage extends BasePage {
     }
 
     //Get success / error message
-    public String getFlashMessage() {
-        return driver.findElement(flashMessage).getText();
+    public boolean isErrorMessageDisplayed() {
+
+        return isDisplayed(flashMessage);
     }
 }
