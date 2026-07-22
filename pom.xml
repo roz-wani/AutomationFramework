@@ -71,7 +71,7 @@
         <dependency>
             <groupId>com.aventstack</groupId>
             <artifactId>extentreports</artifactId>
-            <version>${extendsreports.version}</version>
+            <version>5.1.2</version>
         </dependency>
 
     </dependencies>

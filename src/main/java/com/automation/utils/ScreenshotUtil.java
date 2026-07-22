@@ -21,8 +21,14 @@ public class ScreenshotUtil {
         String timestamp = LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
 
+        File folder = new File("screenshots");
+
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+
         String destination =
-                "screenshot" + testName + "_" + timestamp + ".png";
+                "screenshots/" + testName + "_" + timestamp + ".png";
 
         try {
             Files.copy(
